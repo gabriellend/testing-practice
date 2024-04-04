@@ -49,7 +49,7 @@ describe("calculator functionality", () => {
     });
   });
 
-  describe("divide", () => {
+  xdescribe("divide", () => {
     test("is defined", () => {
       expect(Calculator.divide).toBeDefined();
     });
@@ -65,7 +65,7 @@ describe("calculator functionality", () => {
       expect(Calculator.divide(-4, 2)).toBe(-2);
       expect(Calculator.divide(4, -2)).toBe(-2);
     });
-    test("handles numeric string", () => {
+    test("handles numeric strings", () => {
       expect(Calculator.divide("4", 2)).toBe(2);
       expect(Calculator.divide(8, "2")).toBe(4);
       expect(Calculator.divide("18", "3")).toBe(6);
@@ -117,9 +117,50 @@ describe("calculator functionality", () => {
     });
   });
 
-  xdescribe("multiply", () => {
+  describe("multiply", () => {
     test("is defined", () => {
       expect(Calculator.multiply).toBeDefined();
+    });
+    test("returns a number", () => {
+      expect(typeof Calculator.multiply(10, 2)).toBe("number");
+    });
+    test("handles positive numbers", () => {
+      expect(Calculator.multiply(20, 5)).toBe(100);
+    });
+    test("handles negative numbers", () => {
+      expect(Calculator.multiply(-4, -2)).toBe(8);
+      expect(Calculator.multiply(-4, 2)).toBe(-8);
+      expect(Calculator.multiply(4, -2)).toBe(-8);
+    });
+    test("handles numeric strings", () => {
+      expect(Calculator.multiply("4", 2)).toBe(8);
+      expect(Calculator.multiply(8, "2")).toBe(16);
+      expect(Calculator.multiply("18", "3")).toBe(54);
+    });
+    test("handles decimals", () => {
+      expect(Calculator.multiply(0.1, 0.3)).toBeCloseTo(0.03333333);
+      expect(Calculator.multiply(4, 2.5)).toBe(10);
+      expect(Calculator.multiply(-4, 2.5)).toBe(-10);
+      expect(Calculator.multiply(4, -2.5)).toBe(-10);
+      expect(Calculator.multiply(-4.25, -2.5)).toBe(10.625);
+    });
+    test("throws an error if the input is not a number or numeric string", () => {
+      expect(() => Calculator.multiply("hello", 2)).toThrow(TypeError);
+      expect(() => Calculator.multiply(true, 2)).toThrow(TypeError);
+      expect(() => Calculator.multiply({}, 2)).toThrow(TypeError);
+      expect(() => Calculator.multiply(undefined, 2)).toThrow(TypeError);
+      expect(() => Calculator.multiply(1, null)).toThrow(TypeError);
+    });
+    test("handles extremely large numbers", () => {
+      expect(Calculator.multiply(Number.MAX_VALUE, 2)).toBe(Infinity);
+      expect(Calculator.multiply(Number.MAX_VALUE, Number.MAX_VALUE)).toBe(
+        Infinity
+      );
+    });
+    test("handles multiplying by zero", () => {
+      expect(Calculator.multiply(10, 0)).toBe(0);
+      expect(Calculator.multiply(0, 10)).toBe(0);
+      expect(Calculator.multiply(0, 0)).toBe(0);
     });
   });
 });

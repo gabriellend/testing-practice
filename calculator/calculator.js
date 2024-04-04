@@ -23,4 +23,11 @@ export const Calculator = {
   checkForNegZero: (val) => {
     return val === -0 || val === "-0" ? val : parseFloat(val);
   },
+  multiply: function (a, b) {
+    if (isNaN(parseFloat(a)) || isNaN(parseFloat(b))) {
+      throw TypeError("Parameters must be numbers or numeric strings");
+    }
+
+    return parseFloat(a) * parseFloat(b);
+  },
 };
