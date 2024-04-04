@@ -25,7 +25,7 @@ describe("calculator functionality", () => {
     });
   });
 
-  describe("subtract", () => {
+  xdescribe("subtract", () => {
     test("is defined", () => {
       expect(Calculator.subtract).toBeDefined();
     });
@@ -49,9 +49,71 @@ describe("calculator functionality", () => {
     });
   });
 
-  xdescribe("divide", () => {
+  describe("divide", () => {
     test("is defined", () => {
       expect(Calculator.divide).toBeDefined();
+    });
+    test("returns a number", () => {
+      expect(typeof Calculator.divide(10, 2)).toBe("number");
+      expect(typeof Calculator.divide(10, 3)).toBe("number");
+    });
+    test("handles positive numbers", () => {
+      expect(Calculator.divide(20, 5)).toBe(4);
+    });
+    test("handles negative numbers", () => {
+      expect(Calculator.divide(-4, -2)).toBe(2);
+      expect(Calculator.divide(-4, 2)).toBe(-2);
+      expect(Calculator.divide(4, -2)).toBe(-2);
+    });
+    test("handles numeric string", () => {
+      expect(Calculator.divide("4", 2)).toBe(2);
+      expect(Calculator.divide(8, "2")).toBe(4);
+      expect(Calculator.divide("18", "3")).toBe(6);
+    });
+    test("handles dividing by 0", () => {
+      expect(Calculator.divide(0, 0)).toBe(NaN);
+      expect(Calculator.divide(5, 0)).toBe(Infinity);
+      expect(Calculator.divide(3, -0)).toBe(-Infinity);
+      expect(Calculator.divide(-8, 0)).toBe(-Infinity);
+      expect(Calculator.divide(-67, -0)).toBe(Infinity);
+    });
+    test("handles dividing 0", () => {
+      expect(Calculator.divide(0, 10)).toBe(0);
+      expect(Calculator.divide(0, -13)).toBe(-0);
+      expect(Calculator.divide(-0, 72)).toBe(-0);
+      expect(Calculator.divide(-0, -59)).toBe(0);
+    });
+    test("handles decimals", () => {
+      expect(Calculator.divide(0.1, 0.3)).toBeCloseTo(0.3333333);
+      expect(Calculator.divide(4, 2.5)).toBe(1.6);
+      expect(Calculator.divide(-4, 2.5)).toBe(-1.6);
+      expect(Calculator.divide(4, -2.5)).toBe(-1.6);
+      expect(Calculator.divide(-4, -2.5)).toBe(1.6);
+    });
+    test("handles extremely large numbers", () => {
+      expect(Calculator.divide(1e308, 1e307)).toBe(10);
+      expect(Calculator.divide(1e308, -1e307)).toBe(-10);
+      expect(Calculator.divide(-1e308, 1e307)).toBe(-10);
+      expect(Calculator.divide(-1e308, -1e307)).toBe(10);
+    });
+    test("handles infinity", () => {
+      expect(Calculator.divide(Infinity, Infinity)).toBeNaN();
+      expect(Calculator.divide(0, Infinity)).toBe(0);
+      expect(Calculator.divide(5, Infinity)).toBe(0);
+      expect(Calculator.divide(-17, Infinity)).toBe(-0);
+      expect(Calculator.divide(2, -Infinity)).toBe(-0);
+      expect(Calculator.divide(-5, -Infinity)).toBe(0);
+      expect(Calculator.divide(5.78, Infinity)).toBe(0);
+      expect(Calculator.divide(-1.33, Infinity)).toBe(-0);
+      expect(Calculator.divide(Infinity, 0)).toBe(Infinity);
+      expect(Calculator.divide(Infinity, 26)).toBe(Infinity);
+    });
+    test("throws an error if the input is not a number or numeric string", () => {
+      expect(() => Calculator.divide("hello", 2)).toThrow(TypeError);
+      expect(() => Calculator.divide(true, 2)).toThrow(TypeError);
+      expect(() => Calculator.divide({}, 2)).toThrow(TypeError);
+      expect(() => Calculator.divide(undefined, 2)).toThrow(TypeError);
+      expect(() => Calculator.divide(1, null)).toThrow(TypeError);
     });
   });
 
