@@ -1,3 +1,3 @@
-import { capitalize } from "./capitalize/capitalize.js";
+import { analyzeArray } from "./analyzeArray/analyzeArray.js";
 
-capitalize("");
+console.log(analyzeArray(["hello", 2, null, undefined, "", []]));
