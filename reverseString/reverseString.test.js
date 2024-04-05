@@ -1,4 +1,4 @@
-import { reverseString } from "./reverseString";
+import { reverseString } from "./reverseString.js";
 
 describe("reverseString", () => {
   test("is defined", () => {
